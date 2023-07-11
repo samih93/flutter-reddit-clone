@@ -19,7 +19,8 @@ final userCommunitiesProvider = StreamProvider((ref) {
   return communityController.getUserCommunities();
 });
 
-final communityControllerProvider = StateNotifierProvider<CommunityController, bool>((ref) {
+final communityControllerProvider =
+    StateNotifierProvider<CommunityController, bool>((ref) {
   final communityRepository = ref.watch(communityRepositoryProvider);
   final storageRepository = ref.watch(storageRepositoryProvider);
   return CommunityController(
@@ -30,7 +31,9 @@ final communityControllerProvider = StateNotifierProvider<CommunityController, b
 });
 
 final getCommunityByNameProvider = StreamProvider.family((ref, String name) {
-  return ref.watch(communityControllerProvider.notifier).getCommunityByName(name);
+  return ref
+      .watch(communityControllerProvider.notifier)
+      .getCommunityByName(name);
 });
 
 final searchCommunityProvider = StreamProvider.family((ref, String query) {
@@ -151,7 +154,8 @@ class CommunityController extends StateNotifier<bool> {
     return _communityRepository.searchCommunity(query);
   }
 
-  void addMods(String communityName, List<String> uids, BuildContext context) async {
+  void addMods(
+      String communityName, List<String> uids, BuildContext context) async {
     final res = await _communityRepository.addMods(communityName, uids);
     res.fold(
       (l) => showSnackBar(context, l.message),
